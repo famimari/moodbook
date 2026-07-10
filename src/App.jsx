@@ -56,6 +56,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [entries, setEntries] = useState([]);
+  const [selectedEntry, setSelectedEntry] = useState(null);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -121,6 +122,117 @@ function App() {
     setText("");
     setMessage("");
     setScreen("home");
+  }
+
+  if (screen === "detail" && selectedEntry) {
+    const detailMood = moods.find(
+      (mood) => mood.id === selectedEntry.mood,
+    );
+
+    return (
+      <main className="app">
+        <section className="detail-screen">
+          <header className="detail-header">
+            <button
+              className="back-button"
+              type="button"
+              onClick={() => setScreen("archive")}
+            >
+              ←
+            </button>
+
+            <div>
+              <p>PRIVATE PAGE</p>
+              <span>{selectedEntry.date}</span>
+            </div>
+
+            <span className="detail-mood">
+              {detailMood?.icon || "◌"}
+            </span>
+          </header>
+
+          <article className="detail-page">
+            <p className="detail-label">MY MOOD TODAY</p>
+            <h1>{selectedEntry.title}</h1>
+
+            <p className="detail-text">
+              {selectedEntry.text || "本文はありません"}
+            </p>
+          </article>
+        </section>
+      </main>
+    );
+  }
+
+  if (screen === "archive") {
+    return (
+      <main className="app">
+        <section className="archive-screen">
+          <header className="archive-header">
+            <button
+              className="back-button"
+              type="button"
+              onClick={() => setScreen("home")}
+            >
+              ←
+            </button>
+
+            <div>
+              <p>PRIVATE ARCHIVE</p>
+              <h1>My pages</h1>
+            </div>
+
+            <span className="archive-count">
+              {entries.length}
+            </span>
+          </header>
+
+          {entries.length === 0 ? (
+            <div className="archive-empty">
+              <span>◇</span>
+              <h2>まだページがありません</h2>
+              <p>
+                今日の気持ちを、最初の1ページに残してみよう。
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setScreen("home")}
+              >
+                ページを作る
+              </button>
+            </div>
+          ) : (
+            <div className="archive-grid">
+              {entries.map((entry) => {
+                const entryMood = moods.find(
+                  (mood) => mood.id === entry.mood,
+                );
+
+                return (
+                  <article
+                    className="archive-card"
+                    key={entry.id}
+                    onClick={() => {
+                      setSelectedEntry(entry);
+                      setScreen("detail");
+                    }}
+                  >
+                    <div className="archive-card-top">
+                      <span>{entryMood?.icon || "◌"}</span>
+                      <small>{entry.date}</small>
+                    </div>
+
+                    <h2>{entry.title}</h2>
+                    <p>{entry.text || "本文はありません"}</p>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      </main>
+    );
   }
 
   if (screen === "editor") {
@@ -259,6 +371,7 @@ function App() {
             className="archive-button"
             type="button"
             aria-label="日記一覧"
+            onClick={() => setScreen("archive")}
           >
             {entries.length}
             <span>pages</span>
