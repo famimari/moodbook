@@ -109,3 +109,176 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* ===== 日記詳細ページ：デザイン上書き ===== */
+
+.detail-screen {
+  min-height: 100svh;
+  padding: 28px 24px 64px;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(235, 205, 207, 0.42), transparent 30%),
+    radial-gradient(circle at 90% 90%, rgba(225, 213, 196, 0.5), transparent 34%),
+    #f7f1e9;
+  color: #453b37;
+}
+
+.detail-header {
+  width: min(100%, 760px);
+  margin: 0 auto 24px;
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: 16px;
+}
+
+.detail-screen .back-button {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(91, 72, 64, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #5e4d46;
+  font-size: 22px;
+  box-shadow: 0 10px 24px rgba(91, 72, 64, 0.08);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.detail-header > div {
+  text-align: center;
+}
+
+.detail-header p {
+  margin: 0 0 5px;
+  color: #b28288;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.detail-header span {
+  color: #756863;
+  font-size: 14px;
+}
+
+.detail-mood {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 24px rgba(91, 72, 64, 0.08);
+  font-size: 24px !important;
+}
+
+.detail-page {
+  position: relative;
+  width: min(100%, 760px);
+  min-height: 68svh;
+  margin: 0 auto;
+  padding: 58px 58px 72px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 34px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(253, 248, 242, 0.92)
+    );
+  box-shadow:
+    0 30px 80px rgba(88, 68, 59, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.detail-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 58px;
+  width: 1px;
+  height: 100%;
+  background: rgba(205, 150, 158, 0.35);
+}
+
+.detail-label {
+  margin: 0 0 24px 24px;
+  color: #b28288;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-align: left;
+}
+
+.detail-page h1 {
+  margin: 0 0 34px 24px;
+  color: #3f3632;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(32px, 6vw, 50px);
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.detail-text {
+  min-height: 320px;
+  margin: 0 0 0 24px;
+  padding: 4px 4px 32px;
+  color: #5f534e;
+  font-size: 17px;
+  line-height: 2.2;
+  text-align: left;
+  white-space: pre-wrap;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 36px,
+      rgba(137, 111, 101, 0.1) 37px
+    );
+}
+
+@media (max-width: 600px) {
+  .detail-screen {
+    padding: 18px 14px 40px;
+  }
+
+  .detail-header {
+    grid-template-columns: 46px 1fr 46px;
+    gap: 10px;
+  }
+
+  .detail-screen .back-button,
+  .detail-mood {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  .detail-page {
+    min-height: 72svh;
+    padding: 42px 24px 56px;
+    border-radius: 28px;
+  }
+
+  .detail-page::before {
+    left: 28px;
+  }
+
+  .detail-label,
+  .detail-page h1,
+  .detail-text {
+    margin-left: 20px;
+  }
+
+  .detail-page h1 {
+    margin-bottom: 28px;
+    font-size: 34px;
+  }
+
+  .detail-text {
+    font-size: 16px;
+    line-height: 2.1;
+  }
+}
