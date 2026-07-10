@@ -1,0 +1,820 @@
+:root {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+    "Yu Gothic", "Noto Sans JP", sans-serif;
+  color: #493f3b;
+  background: #f5f0e9;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  display: block;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 10% 8%,
+      rgba(255, 255, 255, 0.95),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 18%,
+      rgba(226, 211, 203, 0.45),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 28% 88%,
+      rgba(236, 226, 211, 0.55),
+      transparent 30%
+    ),
+    linear-gradient(145deg, #f8f4ef 0%, #eee7df 52%, #f8f5f1 100%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 28px 24px 64px;
+}
+
+.app::before,
+.app::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.app::before {
+  top: -120px;
+  right: -90px;
+  width: 340px;
+  height: 340px;
+  background: rgba(223, 195, 192, 0.22);
+}
+
+.app::after {
+  bottom: -140px;
+  left: -110px;
+  width: 380px;
+  height: 380px;
+  background: rgba(198, 211, 194, 0.22);
+}
+
+/* ホーム */
+
+.home-screen {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: #fffaf5;
+  background: #5f514b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  box-shadow: 0 10px 24px rgba(80, 67, 61, 0.18);
+}
+
+.brand p {
+  margin: 0 0 3px;
+  color: #a0938d;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.brand h1 {
+  margin: 0;
+  color: #4c423e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 29px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.archive-button {
+  min-width: 72px;
+  padding: 9px 15px;
+  border: 1px solid rgba(88, 73, 67, 0.08);
+  border-radius: 18px;
+  color: #655752;
+  background: rgba(255, 252, 248, 0.82);
+  box-shadow: 0 10px 28px rgba(88, 72, 65, 0.09);
+  cursor: pointer;
+}
+
+.archive-button span {
+  display: block;
+  margin-top: 1px;
+  color: #a0948e;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.welcome-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: 28px;
+  align-items: stretch;
+  margin-bottom: 48px;
+}
+
+.welcome-copy {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  padding: 50px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 36px;
+  background:
+    linear-gradient(
+      rgba(255, 251, 247, 0.93),
+      rgba(255, 250, 246, 0.94)
+    ),
+    repeating-linear-gradient(
+      125deg,
+      transparent 0 54px,
+      rgba(137, 115, 104, 0.035) 55px 57px,
+      transparent 58px 108px
+    );
+  box-shadow: 0 24px 60px rgba(87, 69, 61, 0.11);
+}
+
+.welcome-copy::after {
+  content: "TODAY";
+  position: absolute;
+  right: -10px;
+  bottom: -25px;
+  color: rgba(119, 96, 86, 0.05);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 105px;
+  letter-spacing: -0.08em;
+  pointer-events: none;
+}
+
+.today-label {
+  margin: 0 0 26px;
+  color: #b08084;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.welcome-copy h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 24px;
+  color: #473d39;
+  font-family:
+    "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.04em;
+}
+
+.welcome-text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #83736c;
+  font-size: 15px;
+  line-height: 2;
+}
+
+.today-note {
+  position: relative;
+  align-self: center;
+  min-height: 255px;
+  padding: 46px 34px 32px;
+  border: 1px solid rgba(168, 145, 116, 0.13);
+  border-radius: 14px 28px 18px 30px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 36px,
+      rgba(122, 102, 91, 0.07) 37px
+    ),
+    #f7edcf;
+  box-shadow: 0 24px 54px rgba(92, 74, 62, 0.13);
+  transform: rotate(1.2deg);
+}
+
+.today-note::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 100px;
+  height: 27px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(214, 194, 162, 0.55);
+  box-shadow: 0 4px 8px rgba(88, 70, 58, 0.05);
+}
+
+.today-note span {
+  color: #a38d70;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.today-note p {
+  margin: 28px 0 34px;
+  color: #5c5049;
+  font-family:
+    "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: 21px;
+  line-height: 1.8;
+}
+
+.today-note button {
+  border: 0;
+  border-bottom: 1px solid rgba(93, 74, 61, 0.28);
+  padding: 4px 0;
+  color: #846f63;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* 作成方法 */
+
+.create-section {
+  padding-bottom: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.section-heading span {
+  color: #aa8e8c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.section-heading h3 {
+  margin: 7px 0 0;
+  color: #4d423e;
+  font-family:
+    "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.section-heading > p {
+  max-width: 280px;
+  margin: 0;
+  color: #9a8e87;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.creation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.creation-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 245px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 28px;
+  text-align: left;
+  box-shadow: 0 17px 40px rgba(83, 67, 60, 0.1);
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.creation-card::after {
+  content: "";
+  position: absolute;
+  right: -25px;
+  bottom: -25px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.creation-card:hover {
+  transform: translateY(-5px) rotate(-0.4deg);
+  box-shadow: 0 24px 50px rgba(83, 67, 60, 0.14);
+}
+
+.creation-card-1 {
+  background: #f0dddd;
+}
+
+.creation-card-2 {
+  background: #dde6dc;
+}
+
+.creation-card-3 {
+  background: #eee5cf;
+}
+
+.creation-card-4 {
+  background: #dde4e9;
+}
+
+.card-number {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: rgba(80, 65, 59, 0.38);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+}
+
+.card-icon {
+  width: 49px;
+  height: 49px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 28px;
+  border-radius: 17px;
+  color: #5d4f49;
+  background: rgba(255, 255, 255, 0.5);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+}
+
+.creation-card small {
+  display: block;
+  margin-bottom: 7px;
+  color: rgba(74, 61, 56, 0.55);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.creation-card strong {
+  display: block;
+  color: #51443f;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.creation-card p {
+  margin: 10px 0 0;
+  color: rgba(78, 65, 60, 0.68);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.card-arrow {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  z-index: 1;
+  color: #5e504a;
+  font-size: 21px;
+}
+
+/* 編集画面 */
+
+.editor-screen {
+  width: min(100%, 960px);
+  margin: 0 auto;
+}
+
+.editor-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-button,
+.save-button {
+  border: 0;
+  cursor: pointer;
+}
+
+.back-button {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  color: #665852;
+  background: rgba(255, 252, 248, 0.82);
+  box-shadow: 0 10px 24px rgba(81, 65, 58, 0.09);
+  font-size: 20px;
+}
+
+.editor-date {
+  text-align: center;
+}
+
+.editor-date span {
+  color: #aa8e8c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.editor-date p {
+  margin: 4px 0 0;
+  color: #82746d;
+  font-size: 12px;
+}
+
+.save-button {
+  justify-self: end;
+  border-radius: 999px;
+  padding: 12px 20px;
+  color: #fffaf5;
+  background: #705d56;
+  box-shadow: 0 12px 28px rgba(90, 70, 62, 0.18);
+}
+
+.paper-page {
+  position: relative;
+  overflow: hidden;
+  min-height: 780px;
+  padding: 34px 38px 42px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: 34px;
+  background:
+    radial-gradient(
+      circle at 15% 12%,
+      rgba(255, 255, 255, 0.95),
+      transparent 25%
+    ),
+    repeating-linear-gradient(
+      125deg,
+      transparent 0 72px,
+      rgba(122, 103, 93, 0.025) 73px 75px,
+      transparent 76px 142px
+    ),
+    #fffaf4;
+  box-shadow: 0 28px 70px rgba(80, 64, 56, 0.12);
+}
+
+.paper-decoration {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.paper-decoration span {
+  padding: 6px 11px;
+  color: #9b7f7b;
+  background: #f4e1e1;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  transform: rotate(1deg);
+}
+
+.mood-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 24px;
+}
+
+.mood-button {
+  min-width: 90px;
+  padding: 10px 12px;
+  border: 1px solid rgba(98, 80, 72, 0.08);
+  border-radius: 18px;
+  color: #81716a;
+  background: #f7f0e9;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.mood-button span {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 18px;
+}
+
+.mood-button small {
+  font-size: 10px;
+}
+
+.mood-button.selected {
+  color: #5e4d47;
+  background: #eee0de;
+  box-shadow: 0 8px 20px rgba(82, 65, 59, 0.09);
+  transform: translateY(-2px);
+}
+
+.prompt-card {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 20px 22px;
+  border-left: 4px solid #d5aea9;
+  border-radius: 0 18px 18px 0;
+  background: #f7eeea;
+}
+
+.prompt-card span {
+  color: #ad8985;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.prompt-card p {
+  margin: 9px 0 12px;
+  color: #64554e;
+  font-family:
+    "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: 17px;
+}
+
+.prompt-card button {
+  border: 0;
+  padding: 0;
+  color: #9b7773;
+  background: transparent;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.title-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 15px 0 18px;
+  border: 0;
+  border-bottom: 1px solid rgba(92, 76, 68, 0.13);
+  outline: 0;
+  color: #4c403b;
+  background: transparent;
+  font-family:
+    "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: clamp(29px, 5vw, 44px);
+}
+
+.title-input::placeholder,
+.diary-input::placeholder {
+  color: #baa9a0;
+}
+
+.diary-input {
+  width: 100%;
+  min-height: 330px;
+  resize: vertical;
+  padding: 20px 0;
+  border: 0;
+  outline: 0;
+  color: #5b4f49;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 35px,
+      rgba(104, 86, 77, 0.075) 36px
+    );
+  font-size: 16px;
+  line-height: 2.25;
+}
+
+.editor-tools {
+  position: sticky;
+  bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  margin-top: 24px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  border-radius: 22px;
+  background: rgba(255, 252, 248, 0.9);
+  box-shadow: 0 16px 38px rgba(78, 61, 54, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.editor-tools button {
+  min-height: 57px;
+  border: 0;
+  border-radius: 16px;
+  color: #8a7972;
+  background: transparent;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  cursor: pointer;
+}
+
+.editor-tools button span {
+  display: block;
+  margin-top: 2px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  font-size: 9px;
+}
+
+.editor-tools button.active {
+  color: #5d4b44;
+  background: #efe2de;
+}
+
+.form-message {
+  margin: 14px 0 0;
+  color: #a26f70;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* iPad縦・スマホ */
+
+@media (max-width: 900px) {
+  .welcome-section {
+    grid-template-columns: 1fr;
+  }
+
+  .today-note {
+    width: min(100%, 520px);
+    justify-self: center;
+  }
+
+  .creation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 18px 12px 40px;
+  }
+
+  .home-header {
+    margin-bottom: 22px;
+  }
+
+  .brand-mark {
+    width: 43px;
+    height: 43px;
+  }
+
+  .brand h1 {
+    font-size: 25px;
+  }
+
+  .welcome-copy {
+    min-height: 330px;
+    padding: 38px 25px;
+    border-radius: 28px;
+  }
+
+  .welcome-copy h2 {
+    font-size: 39px;
+  }
+
+  .today-note {
+    min-height: 230px;
+    padding: 42px 25px 26px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-heading > p {
+    max-width: none;
+  }
+
+  .creation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .creation-card {
+    min-height: 205px;
+  }
+
+  .editor-header {
+    grid-template-columns: 60px 1fr 65px;
+  }
+
+  .paper-page {
+    min-height: 700px;
+    padding: 24px 18px 32px;
+    border-radius: 26px;
+  }
+
+  .mood-selector {
+    gap: 7px;
+  }
+
+  .mood-button {
+    min-width: calc(33.333% - 6px);
+  }
+
+  .editor-tools button {
+    min-height: 54px;
+    font-size: 17px;
+  }
+}
+/* 日本語見出しを韓国ミニマル寄りに調整 */
+
+.welcome-copy h2,
+.section-heading h3,
+.today-note p,
+.prompt-card p,
+.title-input {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Yu Gothic",
+    sans-serif;
+}
+
+.welcome-copy h2 {
+  max-width: 720px;
+  font-size: clamp(38px, 5.4vw, 58px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.055em;
+}
+
+.today-note p {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.85;
+  letter-spacing: -0.035em;
+}
+
+.section-heading h3 {
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.prompt-card p {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.8;
+  letter-spacing: -0.025em;
+}
+
+.title-input {
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
