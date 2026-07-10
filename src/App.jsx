@@ -129,20 +129,6 @@ function App() {
       (mood) => mood.id === selectedEntry.mood,
     );
 
-    function deleteEntry() {
-      const remainingEntries = entries.filter(
-        (entry) => entry.id !== selectedEntry.id,
-      );
-
-      setEntries(remainingEntries);
-      localStorage.setItem(
-        "moodbook-entries",
-        JSON.stringify(remainingEntries),
-      );
-      setSelectedEntry(null);
-      setScreen("archive");
-    }
-
     return (
       <main className="app">
         <section className="detail-screen">
@@ -155,41 +141,23 @@ function App() {
               ←
             </button>
 
-            <div className="detail-header-center">
+            <div>
               <p>PRIVATE PAGE</p>
               <span>{selectedEntry.date}</span>
             </div>
 
-            <div className="detail-mood-group">
-              <span className="detail-mood-icon">
-                {detailMood?.icon || "◌"}
-              </span>
-              <small>{detailMood?.label || "気分"}</small>
-            </div>
+            <span className="detail-mood">
+              {detailMood?.icon || "◌"}
+            </span>
           </header>
 
-          <article className="detail-card">
-            <div className="detail-card-top">
-              <p className="detail-card-tag">MY DIARY</p>
-              <span className="detail-card-brand">Moodbook</span>
-            </div>
-
+          <article className="detail-page">
+            <p className="detail-label">MY MOOD TODAY</p>
             <h1>{selectedEntry.title}</h1>
 
             <p className="detail-text">
               {selectedEntry.text || "本文はありません"}
             </p>
-
-            <div className="detail-card-footer">
-              <small>{selectedEntry.date}</small>
-              <button
-                className="delete-button"
-                type="button"
-                onClick={deleteEntry}
-              >
-                このページを削除
-              </button>
-            </div>
           </article>
         </section>
       </main>
