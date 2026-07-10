@@ -113,23 +113,26 @@ code {
 /* ===== 日記詳細ページ：デザイン上書き ===== */
 
 .detail-screen {
-  min-height: 100svh;
-  padding: 26px 18px 42px;
+  width: 100%;
+  padding: 28px 18px 42px;
   background: #f9f2ec;
   background-image:
     radial-gradient(circle at 10% 12%, rgba(240, 210, 204, 0.28), transparent 28%),
     radial-gradient(circle at 92% 92%, rgba(239, 223, 212, 0.36), transparent 32%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
 }
 
 .detail-header {
-  width: min(100%, 760px);
+  width: min(100%, 720px);
+  max-width: 720px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
-  margin-bottom: 22px;
+  margin: 0 auto;
 }
 
 .detail-header .back-button {
@@ -189,19 +192,19 @@ code {
 }
 
 .detail-card {
-  width: min(100%, 760px);
-  max-width: 760px;
-  padding: 24px 26px 22px;
+  width: min(100%, 720px);
+  padding: 24px 24px 22px;
   border-radius: 28px;
   border: 1px solid rgba(180, 142, 132, 0.2);
   background: #fdf6f1;
-  box-shadow: 0 18px 40px rgba(110, 84, 71, 0.1);
+  box-shadow: 0 14px 30px rgba(110, 84, 71, 0.09);
   color: #4f4138;
 }
 
 .detail-card-top {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-between;
   gap: 10px;
   align-items: center;
