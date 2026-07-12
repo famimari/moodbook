@@ -1042,3 +1042,233 @@ button {
     min-height: 230px;
   }
 }
+/* ===== Diary detail page ===== */
+
+.app:has(.detail-screen) {
+  width: 100%;
+  max-width: none;
+  min-height: 100svh;
+  padding: 0;
+}
+
+.detail-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100svh;
+  padding: 32px 24px 56px;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #4d423e;
+  background:
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(232, 198, 202, 0.32),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 92% 90%,
+      rgba(222, 209, 193, 0.45),
+      transparent 34%
+    ),
+    #f7f1eb;
+}
+
+.detail-screen::before,
+.detail-screen::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.detail-screen::before {
+  top: -90px;
+  right: -70px;
+  width: 240px;
+  height: 240px;
+  background: rgba(236, 215, 214, 0.38);
+  filter: blur(2px);
+}
+
+.detail-screen::after {
+  bottom: -110px;
+  left: -80px;
+  width: 260px;
+  height: 260px;
+  background: rgba(230, 219, 204, 0.42);
+  filter: blur(2px);
+}
+
+.detail-header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  align-items: center;
+  width: min(100%, 720px);
+  margin: 0 auto 22px;
+}
+
+.detail-screen .back-button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid rgba(104, 83, 75, 0.1);
+  border-radius: 18px;
+  color: #665650;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 28px rgba(93, 72, 65, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 22px;
+}
+
+.detail-header > div {
+  text-align: center;
+}
+
+.detail-header p {
+  margin: 0 0 6px;
+  color: #b48187;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.detail-header span:not(.detail-mood) {
+  color: #796c67;
+  font-size: 14px;
+}
+
+.detail-mood {
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(104, 83, 75, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 28px rgba(93, 72, 65, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 23px;
+}
+
+.detail-page {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 720px);
+  min-height: 0;
+  margin: 0 auto;
+  padding: 48px 52px 44px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 32px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(253, 247, 243, 0.9)
+    );
+  box-shadow:
+    0 28px 70px rgba(95, 72, 64, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.detail-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 52px;
+  width: 82px;
+  height: 5px;
+  border-radius: 0 0 8px 8px;
+  background: #ddb6bb;
+}
+
+.detail-label {
+  margin: 0 0 24px;
+  color: #b48187;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-align: left;
+}
+
+.detail-page h1 {
+  margin: 0 0 28px;
+  color: #403632;
+  font-family:
+    "Yu Mincho",
+    "Hiragino Mincho ProN",
+    "Hiragino Mincho Pro",
+    serif;
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.detail-text {
+  min-height: 0;
+  margin: 0;
+  padding: 26px 0 4px;
+  border-top: 1px solid rgba(130, 102, 93, 0.13);
+  color: #5e514c;
+  font-size: 17px;
+  line-height: 2;
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .detail-screen {
+    padding: 18px 14px 36px;
+  }
+
+  .detail-header {
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    margin-bottom: 16px;
+  }
+
+  .detail-screen .back-button,
+  .detail-mood {
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  .detail-page {
+    padding: 38px 26px 34px;
+    border-radius: 26px;
+  }
+
+  .detail-page::before {
+    left: 26px;
+    width: 66px;
+  }
+
+  .detail-label {
+    margin-bottom: 20px;
+  }
+
+  .detail-page h1 {
+    margin-bottom: 22px;
+    font-size: 32px;
+  }
+
+  .detail-text {
+    padding-top: 22px;
+    font-size: 16px;
+    line-height: 1.9;
+  }
+}
