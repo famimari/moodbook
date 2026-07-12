@@ -1272,3 +1272,39 @@ button {
     line-height: 1.9;
   }
 }
+/* ===== Diary detail v2 polish ===== */
+
+.detail-header,
+.detail-page {
+  width: min(100%, 640px);
+}
+
+.detail-page {
+  padding: 42px 46px 38px;
+}
+
+@media (min-height: 900px) and (min-width: 601px) {
+  .detail-screen {
+    justify-content: center;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .detail-header,
+  .detail-page {
+    width: 100%;
+  }
+
+  .detail-page {
+    padding: 36px 26px 32px;
+  }
+}
+@media (min-width: 601px) {
+  .detail-screen {
+    justify-content: center;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+}
