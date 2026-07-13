@@ -1308,3 +1308,511 @@ button {
     padding-bottom: 28px;
   }
 }
+.calendar-panel {
+  width: min(100%, 760px);
+  margin: 26px auto 34px;
+  padding: 24px;
+  border: 1px solid rgba(190, 158, 169, 0.22);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 20px 48px rgba(93, 72, 75, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.calendar-toolbar {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.calendar-toolbar h2 {
+  margin: 0;
+  text-align: center;
+  font-family: "Times New Roman", "Yu Mincho", serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #57484b;
+}
+
+.calendar-month-button {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(190, 158, 169, 0.26);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #755f65;
+  font-size: 28px;
+  line-height: 1;
+  box-shadow: 0 8px 20px rgba(91, 70, 75, 0.08);
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+  padding: 6px 0;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #a1848d;
+}
+
+.calendar-cell {
+  position: relative;
+  min-height: 68px;
+  padding: 10px 8px;
+  border: 1px solid rgba(190, 158, 169, 0.18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #655459;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.calendar-cell-empty {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.calendar-cell:not(.calendar-cell-empty):active {
+  transform: scale(0.96);
+}
+
+.calendar-cell-selected {
+  border-color: rgba(197, 140, 157, 0.7);
+  background: rgba(248, 225, 232, 0.92);
+}
+
+.calendar-day-number {
+  display: block;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.calendar-entry-count {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #c997a6;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .calendar-panel {
+    margin-top: 18px;
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
+
+  .calendar-toolbar {
+    grid-template-columns: 44px 1fr 44px;
+    gap: 8px;
+  }
+
+  .calendar-toolbar h2 {
+    font-size: 24px;
+  }
+
+  .calendar-month-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+  }
+
+  .calendar-weekdays,
+  .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-cell {
+    min-height: 54px;
+    padding: 8px 6px;
+    border-radius: 14px;
+  }
+
+  .calendar-day-number {
+    font-size: 13px;
+  }
+
+  .calendar-entry-count {
+    right: 5px;
+    bottom: 5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 10px;
+  }
+.photo-preview {
+  width: min(100%, 300px);
+  margin: 20px auto 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: block;
+  cursor: pointer;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 8px 24px rgba(86, 68, 64, 0.12);
+}
+
+.photo-preview span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #a18d87;
+  text-align: center;
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 32px 20px;
+  background: rgba(28, 23, 22, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+.photo-modal img {
+  width: auto;
+  height: auto;
+  max-width: 70vw;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  background: #fff;
+  padding: 8px;
+}
+.photo-modal-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+}
+.photo-preview {
+  width: 300px !important;
+  max-width: 70vw !important;
+  margin: 20px auto 28px !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  display: block !important;
+}
+
+.photo-preview img {
+  width: 100% !important;
+  height: 180px !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  background: #f7f1ed;
+  border-radius: 16px !important;
+  display: block !important;
+}
+
+.photo-preview span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #a18d87;
+  text-align: center;
+}
+}
+.photo-preview {
+  width: 220px !important;
+  max-width: 55vw !important;
+  margin: 16px auto 24px !important;
+}
+
+.photo-preview img {
+  width: 100% !important;
+  height: 150px !important;
+  object-fit: contain !important;
+  background: #f7f1ed !important;
+  border-radius: 14px !important;
+}
+
+.photo-modal {
+  padding: 24px !important;
+}
+
+.photo-modal img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 60vw !important;
+  max-height: 55vh !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+  padding: 8px !important;
+  border-radius: 12px !important;
+}
+.photo-preview {
+  position: relative !important;
+}
+
+.photo-preview span.photo-zoom-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #6f5c57;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(70, 55, 51, 0.16);
+  pointer-events: none;
+}
+.photo-preview {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.photo-preview span.photo-zoom-icon {
+  position: absolute !important;
+  right: 9px !important;
+  bottom: 9px !important;
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: #75635e !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 17px !important;
+  font-weight: 300 !important;
+  line-height: 1 !important;
+  box-shadow: 0 3px 12px rgba(73, 57, 52, 0.14) !important;
+  backdrop-filter: blur(6px);
+  pointer-events: none !important;
+}
+.detail-photo-status {
+  width: fit-content;
+  margin: 22px auto 10px;
+  padding: 8px 15px;
+  border: 1px solid rgba(194, 159, 164, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 250, 248, 0.72);
+  color: #a27b81;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.detail-photo-status-dot {
+  color: #c89ba2;
+  letter-spacing: 0;
+}
+/* ===== Multiple photo UI ===== */
+
+.photo-preview-grid,
+.detail-photo-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  width: min(100%, 620px);
+  margin: 20px auto 28px;
+}
+
+.photo-preview-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.photo-preview,
+.detail-photo-item {
+  position: relative;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border:
+    1px solid rgba(190, 158, 169, 0.2) !important;
+  border-radius: 16px !important;
+  background: #f7f1ed !important;
+  display: block !important;
+  cursor: pointer;
+}
+
+.photo-preview img,
+.detail-photo-item img {
+  width: 100% !important;
+  height: 150px !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  background: #f7f1ed !important;
+  border-radius: 16px !important;
+  display: block !important;
+}
+
+.photo-remove-button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #765f5a;
+  box-shadow:
+    0 4px 14px rgba(70, 55, 51, 0.16);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.photo-preview span.photo-zoom-icon {
+  position: absolute !important;
+  right: 8px !important;
+  bottom: 8px !important;
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  background:
+    rgba(255, 255, 255, 0.88) !important;
+  color: #75635e !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 17px !important;
+  line-height: 1 !important;
+  box-shadow:
+    0 3px 12px rgba(73, 57, 52, 0.14) !important;
+  pointer-events: none !important;
+}
+
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 24px !important;
+  background: rgba(28, 23, 22, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 60vw !important;
+  max-height: 55vh !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+  padding: 8px !important;
+  border-radius: 12px !important;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.photo-modal-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #5f504b;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.detail-photo-status {
+  width: fit-content;
+  margin: 22px auto 10px;
+  padding: 8px 15px;
+  border:
+    1px solid rgba(194, 159, 164, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 250, 248, 0.72);
+  color: #a27b81;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.detail-photo-status-dot {
+  color: #c89ba2;
+  letter-spacing: 0;
+}
+
+@media (max-width: 600px) {
+  .photo-preview-grid,
+  .detail-photo-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .photo-preview img,
+  .detail-photo-item img {
+    height: 125px !important;
+  }
+
+  .photo-modal img {
+    max-width: 84vw !important;
+    max-height: 72vh !important;
+  }
+}
