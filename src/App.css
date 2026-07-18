@@ -1,3 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap");
+/* ===== Diary font selector ===== */
+
+.font-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 6px;
+  border: 1px solid rgba(170, 137, 145, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 252, 250, 0.72);
+}
+
+.font-selector button {
+  flex: 1;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #9c8581;
+  font-size: 12px;
+}
+
+.font-selector button.active {
+  background: #ead9dc;
+  color: #4e403d;
+}
+
+.diary-input.serif {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+}
+
+.diary-input.sans {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", sans-serif;
+}
+
+.diary-input.hand {
+  font-family: "Zen Kurenaido", sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 2.2;
+}
 :root {
   font-family:
     -apple-system, BlinkMacSystemFont, "Hiragino Sans",
@@ -1011,6 +1056,7 @@ button {
   line-height: 1.8;
   white-space: pre-wrap;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 

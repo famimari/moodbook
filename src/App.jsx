@@ -74,6 +74,7 @@ function App() {
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [selectedFont, setSelectedFont] = useState("serif");
   const [photos, setPhotos] = useState([]);
   const [openPhoto, setOpenPhoto] = useState(null);
 
@@ -932,7 +933,7 @@ function App() {
             )}
 
             <textarea
-              className="diary-input"
+             className={"diary-input " + selectedFont}
               placeholder="上手に書かなくて大丈夫。今の気持ちを、そのまま。"
               value={text}
               onChange={(event) =>
@@ -941,6 +942,28 @@ function App() {
             />
 
             <div className="editor-tools">
+              <div className="font-selector">
+  <button
+    className={selectedFont === "serif" ? "active" : ""}
+    onClick={() => setSelectedFont("serif")}
+  >
+    明朝
+  </button>
+
+  <button
+    className={selectedFont === "sans" ? "active" : ""}
+    onClick={() => setSelectedFont("sans")}
+  >
+    ゴシック
+  </button>
+
+  <button
+    className={selectedFont === "hand" ? "active" : ""}
+    onClick={() => setSelectedFont("hand")}
+  >
+    ペン字
+  </button>
+</div>
               <button
                 className={
                   selectedMode === "text"
