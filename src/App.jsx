@@ -1194,7 +1194,7 @@ function App() {
             {selectedMode === "draw" && (
               <div className="drawing-panel">
                 <div className="drawing-toolbar">
-                  <div className="drawing-controls">
+                  <div className="drawing-tools-row">
                     <button
                       type="button"
                       className={
@@ -1220,69 +1220,89 @@ function App() {
                     </button>
                   </div>
 
-                  <div className="drawing-color-row">
-                    {[
-                      { id: "black", label: "黒" },
-                      { id: "brown", label: "ブラウン" },
-                      { id: "pink", label: "ピンク" },
-                    ].map((color) => (
-                      <button
-                        key={color.id}
-                        type="button"
-                        className={
-                          selectedColor === color.id &&
-                          drawingTool === "pen"
-                            ? "drawing-color-button active"
-                            : "drawing-color-button"
-                        }
-                        onClick={() => {
-                          setSelectedColor(color.id);
-                          setDrawingTool("pen");
-                        }}
-                        disabled={drawingTool === "eraser"}
-                      >
-                        {color.label}
-                      </button>
-                    ))}
-                  </div>
+                  <div className="drawing-toolbar-row">
+                    <div className="drawing-color-row">
+                      {[
+                        { id: "black", label: "黒", color: "#2c2420" },
+                        { id: "brown", label: "ブラウン", color: "#7f5b4d" },
+                        { id: "pink", label: "ピンク", color: "#cd8b95" },
+                      ].map((color) => (
+                        <button
+                          key={color.id}
+                          type="button"
+                          className={
+                            selectedColor === color.id &&
+                            drawingTool === "pen"
+                              ? "drawing-color-button active"
+                              : "drawing-color-button"
+                          }
+                          onClick={() => {
+                            setSelectedColor(color.id);
+                            setDrawingTool("pen");
+                          }}
+                          disabled={drawingTool === "eraser"}
+                          aria-label={`${color.label} のペン色`}
+                        >
+                          <span
+                            className="color-chip"
+                            style={{ background: color.color }}
+                          />
+                        </button>
+                      ))}
+                    </div>
 
-                  <div className="drawing-size-row">
-                    {[
-                      { id: "thin", label: "細" },
-                      { id: "medium", label: "中" },
-                      { id: "thick", label: "太" },
-                    ].map((size) => (
-                      <button
-                        key={size.id}
-                        type="button"
-                        className={
-                          brushSize === size.id
-                            ? "drawing-size-button active"
-                            : "drawing-size-button"
-                        }
-                        onClick={() => setBrushSize(size.id)}
-                      >
-                        {size.label}
-                      </button>
-                    ))}
-                  </div>
+                    <div className="drawing-size-row">
+                      {[
+                        { id: "thin", label: "細", width: 2.5 },
+                        { id: "medium", label: "中", width: 6 },
+                        { id: "thick", label: "太", width: 10 },
+                      ].map((size) => (
+                        <button
+                          key={size.id}
+                          type="button"
+                          className={
+                            brushSize === size.id
+                              ? "drawing-size-button active"
+                              : "drawing-size-button"
+                          }
+                          onClick={() => setBrushSize(size.id)}
+                          aria-label={`${size.label} の線幅`}
+                        >
+                          <span
+                            className="size-preview"
+                            style={{ height: `${size.width}px` }}
+                          />
+                        </button>
+                      ))}
+                    </div>
 
-                  <div className="drawing-action-row">
-                    <button
-                      type="button"
-                      className="drawing-action-button"
-                      onClick={undoDrawing}
-                      disabled={undoStackRef.current.length === 0}
-                    >
-                      戻る
-                    </button>
-                    <button
-                      type="button"
-                      className="drawing-action-button"
-                      onClick={clearDrawing}
-                    >
-                      全消去
-                    </button>
+                    <div className="drawing-action-row">
+                      <button
+                        type="button"
+                        className="drawing-action-button small"
+                        onClick={undoDrawing}
+                        disabled={undoStackRef.current.length === 0}
+                        aria-label="戻る"
+                      >
+                        ↶
+                      </button>
+                      <button
+                        type="button"
+                        className="drawing-action-button small"
+                        onClick={() => setDrawingTool("eraser")}
+                        aria-label="消しゴムに切り替え"
+                      >
+                        🩹
+                      </button>
+                      <button
+                        type="button"
+                        className="drawing-action-button small danger"
+                        onClick={clearDrawing}
+                        aria-label="全消去"
+                      >
+                        🗑
+                      </button>
+                    </div>
                   </div>
                 </div>
 
