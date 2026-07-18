@@ -77,6 +77,15 @@ function App() {
   const [selectedFont, setSelectedFont] = useState("serif");
   const [photos, setPhotos] = useState([]);
   const [openPhoto, setOpenPhoto] = useState(null);
+  const [drawingData, setDrawingData] = useState("");
+  const [selectedColor, setSelectedColor] = useState("black");
+  const [brushSize, setBrushSize] = useState("medium");
+  const [drawingTool, setDrawingTool] = useState("pen");
+  const drawingCanvasRef = useRef(null);
+  const isDrawingRef = useRef(false);
+  const lastPointerRef = useRef({ x: 0, y: 0 });
+  const undoStackRef = useRef([]);
+  const canvasDimensionsRef = useRef({ width: 0, height: 0 });
 
   const [entries, setEntries] = useState([]);
   const [selectedEntry, setSelectedEntry] = useState(null);
@@ -131,8 +140,13 @@ function App() {
     setOpenPhoto(null);
     setSelectedMood("calm");
     setSelectedMode("text");
+    setDrawingData("");
+    setSelectedColor("black");
+    setBrushSize("medium");
+    setDrawingTool("pen");
     setEditingEntryId(null);
     setMessage("");
+    undoStackRef.current = [];
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -165,6 +179,10 @@ function App() {
     setPhotos(normalizedEntry.photos.slice(0, MAX_PHOTOS));
     setSelectedMood(normalizedEntry.mood || "calm");
     setSelectedMode(normalizedEntry.mode || "text");
+    setDrawingData(normalizedEntry.drawing || "");
+    setDrawingTool("pen");
+    setSelectedColor("black");
+    setBrushSize("medium");
     setMessage("");
     setScreen("editor");
   }
@@ -194,14 +212,245 @@ function App() {
     }
   }
 
+  const getBrushColor = () => {
+    if (drawingTool === "eraser") {
+      return "rgba(0,0,0,1)";
+    }
+
+    if (selectedColor === "brown") {
+      return "#7f5b4d";
+    }
+
+    if (selectedColor === "pink") {
+      return "#cd8b95";
+    }
+
+    return "#2c2420";
+  };
+
+  const getBrushWidth = () => {
+    if (brushSize === "thin") {
+      return 2.5;
+    }
+
+    if (brushSize === "thick") {
+      return 10;
+    }
+
+    return 6;
+  };
+
+  const getCompositeOperation = () =>
+    drawingTool === "eraser"
+      ? "destination-out"
+      : "source-over";
+
+  const updateDrawingData = () => {
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return;
+
+    const dataUrl = canvas.toDataURL("image/png");
+    setDrawingData(dataUrl);
+  };
+
+  const loadCanvasFromData = (dataUrl) => {
+    const canvas = drawingCanvasRef.current;
+    if (!canvas || !dataUrl) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const image = new Image();
+    image.onload = () => {
+      const rect = canvas.getBoundingClientRect();
+      context.clearRect(0, 0, rect.width, rect.height);
+      context.drawImage(
+        image,
+        0,
+        0,
+        rect.width,
+        rect.height,
+      );
+    };
+    image.src = dataUrl;
+  };
+
+  const resizeCanvas = () => {
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const width = Math.floor(rect.width * dpr);
+    const height = Math.floor(rect.height * dpr);
+
+    if (
+      canvasDimensionsRef.current.width === width &&
+      canvasDimensionsRef.current.height === height
+    ) {
+      return;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    context.clearRect(0, 0, rect.width, rect.height);
+
+    if (drawingData) {
+      loadCanvasFromData(drawingData);
+    }
+
+    canvasDimensionsRef.current = { width, height };
+  };
+
+  const beginStroke = (event) => {
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    event.preventDefault();
+    canvas.setPointerCapture(event.pointerId);
+    isDrawingRef.current = true;
+
+    undoStackRef.current.push(
+      canvas.toDataURL("image/png"),
+    );
+    if (undoStackRef.current.length > 40) {
+      undoStackRef.current.shift();
+    }
+
+    lastPointerRef.current = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+
+    context.beginPath();
+    context.lineCap = "round";
+    context.lineJoin = "round";
+    context.strokeStyle = getBrushColor();
+    context.lineWidth = getBrushWidth();
+    context.globalCompositeOperation = getCompositeOperation();
+    context.moveTo(
+      lastPointerRef.current.x,
+      lastPointerRef.current.y,
+    );
+  };
+
+  const continueStroke = (event) => {
+    if (!isDrawingRef.current) return;
+
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    event.preventDefault();
+
+    const nextX = event.clientX - rect.left;
+    const nextY = event.clientY - rect.top;
+
+    context.lineTo(nextX, nextY);
+    context.stroke();
+
+    lastPointerRef.current = {
+      x: nextX,
+      y: nextY,
+    };
+  };
+
+  const endStroke = (event) => {
+    if (!isDrawingRef.current) return;
+
+    const canvas = drawingCanvasRef.current;
+    if (canvas) {
+      const context = canvas.getContext("2d");
+      if (context) {
+        context.closePath();
+      }
+    }
+
+    isDrawingRef.current = false;
+    updateDrawingData();
+
+    if (event?.target?.releasePointerCapture) {
+      event.target.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const undoDrawing = () => {
+    const previousState = undoStackRef.current.pop();
+    if (!previousState) return;
+
+    loadCanvasFromData(previousState);
+    setDrawingData(previousState);
+  };
+
+  const clearDrawing = () => {
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    undoStackRef.current.push(
+      canvas.toDataURL("image/png"),
+    );
+    if (undoStackRef.current.length > 40) {
+      undoStackRef.current.shift();
+    }
+
+    context.clearRect(0, 0, rect.width, rect.height);
+    setDrawingData("");
+  };
+
+  useEffect(() => {
+    if (editingEntryId !== null && selectedEntry) {
+      setDrawingData(selectedEntry.drawing || "");
+    }
+  }, [editingEntryId, selectedEntry]);
+
+  useEffect(() => {
+    if (screen !== "editor" || selectedMode !== "draw") {
+      return undefined;
+    }
+
+    const canvas = drawingCanvasRef.current;
+    if (!canvas) return undefined;
+
+    resizeCanvas();
+
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+    });
+
+    resizeObserver.observe(canvas);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [screen, selectedMode, drawingData]);
+
   function saveEntry() {
     if (
       !title.trim() &&
       !text.trim() &&
-      photos.length === 0
+      photos.length === 0 &&
+      !drawingData
     ) {
       setMessage(
-        "タイトル・本文・写真のどれかを追加してみてね",
+        "タイトル・本文・写真・手書きのどれかを追加してみてね",
       );
       return;
     }
@@ -214,6 +463,7 @@ function App() {
         photos,
         mood: selectedMood,
         mode: selectedMode,
+        drawing: drawingData || selectedEntry?.drawing || "",
       });
 
       const updatedEntries = entries.map((entry) =>
@@ -239,6 +489,7 @@ function App() {
       mood: selectedMood,
       mode: selectedMode,
       date: todayJapanese,
+      drawing: drawingData,
     };
 
     const updatedEntries = [
@@ -419,6 +670,15 @@ function App() {
               {normalizedEntry.text ||
                 "本文はありません"}
             </p>
+
+            {normalizedEntry.drawing ? (
+              <div className="detail-drawing">
+                <img
+                  src={normalizedEntry.drawing}
+                  alt="手書きのメモ"
+                />
+              </div>
+            ) : null}
 
             {normalizedEntry.photos.length >
               0 && (
@@ -931,9 +1191,116 @@ function App() {
                 )}
               </div>
             )}
+            {selectedMode === "draw" && (
+              <div className="drawing-panel">
+                <div className="drawing-toolbar">
+                  <div className="drawing-controls">
+                    <button
+                      type="button"
+                      className={
+                        drawingTool === "pen"
+                          ? "drawing-tool-button active"
+                          : "drawing-tool-button"
+                      }
+                      onClick={() => setDrawingTool("pen")}
+                    >
+                      ペン
+                    </button>
 
+                    <button
+                      type="button"
+                      className={
+                        drawingTool === "eraser"
+                          ? "drawing-tool-button active"
+                          : "drawing-tool-button"
+                      }
+                      onClick={() => setDrawingTool("eraser")}
+                    >
+                      消しゴム
+                    </button>
+                  </div>
+
+                  <div className="drawing-color-row">
+                    {[
+                      { id: "black", label: "黒" },
+                      { id: "brown", label: "ブラウン" },
+                      { id: "pink", label: "ピンク" },
+                    ].map((color) => (
+                      <button
+                        key={color.id}
+                        type="button"
+                        className={
+                          selectedColor === color.id &&
+                          drawingTool === "pen"
+                            ? "drawing-color-button active"
+                            : "drawing-color-button"
+                        }
+                        onClick={() => {
+                          setSelectedColor(color.id);
+                          setDrawingTool("pen");
+                        }}
+                        disabled={drawingTool === "eraser"}
+                      >
+                        {color.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="drawing-size-row">
+                    {[
+                      { id: "thin", label: "細" },
+                      { id: "medium", label: "中" },
+                      { id: "thick", label: "太" },
+                    ].map((size) => (
+                      <button
+                        key={size.id}
+                        type="button"
+                        className={
+                          brushSize === size.id
+                            ? "drawing-size-button active"
+                            : "drawing-size-button"
+                        }
+                        onClick={() => setBrushSize(size.id)}
+                      >
+                        {size.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="drawing-action-row">
+                    <button
+                      type="button"
+                      className="drawing-action-button"
+                      onClick={undoDrawing}
+                      disabled={undoStackRef.current.length === 0}
+                    >
+                      戻る
+                    </button>
+                    <button
+                      type="button"
+                      className="drawing-action-button"
+                      onClick={clearDrawing}
+                    >
+                      全消去
+                    </button>
+                  </div>
+                </div>
+
+                <div className="drawing-area">
+                  <canvas
+                    ref={drawingCanvasRef}
+                    className="drawing-canvas"
+                    onPointerDown={beginStroke}
+                    onPointerMove={continueStroke}
+                    onPointerUp={endStroke}
+                    onPointerLeave={endStroke}
+                    onPointerCancel={endStroke}
+                  />
+                </div>
+              </div>
+            )}
             <textarea
-             className={"diary-input " + selectedFont}
+              className={"diary-input " + selectedFont}
               placeholder="上手に書かなくて大丈夫。今の気持ちを、そのまま。"
               value={text}
               onChange={(event) =>

@@ -678,6 +678,86 @@ button {
   line-height: 2.25;
 }
 
+.drawing-panel {
+  margin-bottom: 28px;
+}
+
+.drawing-toolbar {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px;
+  border-radius: 22px;
+  background: rgba(255, 248, 243, 0.92);
+  border: 1px solid rgba(174, 145, 135, 0.16);
+}
+
+.drawing-controls,
+.drawing-color-row,
+.drawing-size-row,
+.drawing-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.drawing-tool-button,
+.drawing-color-button,
+.drawing-size-button,
+.drawing-action-button {
+  padding: 10px 14px;
+  border: 1px solid rgba(150, 122, 111, 0.16);
+  border-radius: 14px;
+  background: #fff8f3;
+  color: #5f4b44;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.drawing-tool-button.active,
+.drawing-color-button.active,
+.drawing-size-button.active,
+.drawing-action-button:hover {
+  border-color: rgba(140, 104, 92, 0.28);
+  background: #efe4dd;
+}
+
+.drawing-color-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.drawing-area {
+  width: 100%;
+  min-height: 320px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(158, 131, 120, 0.18);
+  background: #fffaf4;
+}
+
+.drawing-canvas {
+  width: 100%;
+  min-height: 320px;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.detail-drawing {
+  margin: 20px 0;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(173, 140, 131, 0.16);
+  background: #fffaf4;
+}
+
+.detail-drawing img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
 .editor-tools {
   position: sticky;
   bottom: 16px;
