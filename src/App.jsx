@@ -1328,14 +1328,16 @@ function App() {
                 </div>
               </div>
             )}
-            <textarea
-              className={"diary-input " + selectedFont}
-              placeholder="上手に書かなくて大丈夫。今の気持ちを、そのまま。"
-              value={text}
-              onChange={(event) =>
-                setText(event.target.value)
-              }
-            />
+            {selectedMode !== "draw" && (
+              <textarea
+                className={"diary-input " + selectedFont}
+                placeholder="上手に書かなくて大丈夫。今の気持ちを、そのまま。"
+                value={text}
+                onChange={(event) =>
+                  setText(event.target.value)
+                }
+              />
+            )}
 
             <div className="editor-tools">
               <div className="font-selector">

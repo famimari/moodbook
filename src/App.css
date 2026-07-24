@@ -679,6 +679,9 @@ button {
 }
 
 .drawing-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin-bottom: 22px;
 }
 
@@ -835,8 +838,8 @@ button {
 
 .drawing-area {
   width: 100%;
-  min-height: 55vh;
-  max-height: 80vh;
+  min-height: 75vh;
+  max-height: 85vh;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid rgba(158, 131, 120, 0.14);
@@ -845,7 +848,8 @@ button {
 
 .drawing-canvas {
   width: 100%;
-  min-height: 55vh;
+  height: 100%;
+  min-height: 75vh;
   display: block;
   touch-action: none;
   cursor: crosshair;
@@ -853,11 +857,11 @@ button {
 
 @media (min-width: 900px) {
   .drawing-area {
-    min-height: 70vh;
+    min-height: 78vh;
   }
 
   .drawing-canvas {
-    min-height: 70vh;
+    min-height: 78vh;
   }
 }
 
